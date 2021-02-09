@@ -235,7 +235,10 @@ async def ban (ctx, member:discord.User=None, reason =None):
     message = f"You have been banned from {ctx.guild.name} for {reason}"
     await member.send(message)
     # await ctx.guild.ban(member, reason=reason)
-    await ctx.channel.send(f"{member} is banned!")
+    ban_embed = discord.Embed(colour = discord.Colour.red()
+    )
+    ban_embed.add_field(name="Banned!",value=f"{member} was banned from {ctx.guild.name} for {reason}!")
+    await ctx.send(embed=ban_embed)
     await member.ban(reason = reason)
 
 @ban.error
@@ -261,7 +264,7 @@ async def unban(ctx, *, member):
 
 # Kick Command
 @bot.command()
-@commands.has_aermissions(kick_members = True)
+@commands.has_permissions(kick_members = True)
 async def kick (ctx, member:discord.User=None, reason =None):
     if member == None or member == ctx.message.author:
         await ctx.channel.send("You cannot kick yourself.. Just leave the server..")
@@ -271,7 +274,10 @@ async def kick (ctx, member:discord.User=None, reason =None):
     message = f"You have been kicked from {ctx.guild.name} for {reason}"
     await member.send(message)
     # await ctx.guild.ban(member, reason=reason)
-    await ctx.channel.send(f"{member} has been kicked!!")
+    kick_embed = discord.Embed(colour = discord.Colour.red()
+    )
+    kick_embed.add_field(name="Kicked!",value=f"{member} was kicked from {ctx.guild.name} for {reason}!")
+    await ctx.send(embed=kick_embed)
     await member.kick(reason = reason)
 
 # Help Command 
@@ -291,4 +297,4 @@ async def help(ctx):
 
   await ctx.send(embed=help_embed)
 
-bot.run('[INSERT TOKEN HERE]')
+bot.run('')
